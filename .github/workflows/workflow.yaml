@@ -9,19 +9,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Void: Prepare Container
+      - name: "Void: Prepare Container"
         run: |
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git git-lfs
           useradd -G xbuilder -M builder
-      - name: Treeless Checkout
+      - name: "Treeless Checkout"
         uses: classabbyamp/treeless-checkout-action@v1
-      - name: Void: Prepare Masterdir
+      - name: "Void: Prepare Masterdir"
         run: |
           chown -R builder:builder .
           sudo -Eu builder common/travis/set_mirror.sh
           sudo -Eu builder common/travis/prepare.sh
           common/travis/fetch-xtools.sh
-      - name: Void: Build Package
+      - name: "Void: Build Package"
         run: sudo -Eu builder ./xbps-src pkg lm_sensors
