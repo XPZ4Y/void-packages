@@ -15,10 +15,6 @@ jobs:
         - /dev:/dev
 
     steps:
-      - name: "Execute Workflow on Branch"
-        run: echo "Executing abstract node execute-branch"
-        env:
-          branch_name: master
       - name: "Void: Prepare Container"
         run: |
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
